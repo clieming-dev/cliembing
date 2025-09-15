@@ -18,6 +18,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Data
 @Entity
 @Builder
+@Table(name ="tbl_crew")
 public class CrewEntity extends BaseEntity {
     @Comment("크루 관리 아이디")
     @Id
@@ -48,10 +49,5 @@ public class CrewEntity extends BaseEntity {
     private Float activityScore;
 
     private Long mainPicId;
-
-
-
-
-
 
 }
