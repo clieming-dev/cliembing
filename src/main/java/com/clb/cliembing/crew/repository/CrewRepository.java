@@ -2,10 +2,12 @@ package com.clb.cliembing.crew.repository;
 
 import com.clb.cliembing.crew.entity.CrewEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface CrewRepository extends JpaRepository<CrewEntity, Long> {
     // crewName 으로 조회
     Optional<CrewEntity> findByCrewName(String crewName);

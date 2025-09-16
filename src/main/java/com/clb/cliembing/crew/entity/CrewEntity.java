@@ -14,19 +14,20 @@ import org.hibernate.annotations.SQLRestriction;
 @DynamicInsert
 @Comment("크루(팀) 기본 정보 테이블")
 @SQLRestriction(value = "is_deleted = false")
-@SQLDelete(sql = "UPDATE tbl_crew SET is_deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE tbl_crew SET is_deleted = true WHERE crew_id = ?")
 @Data
 @Entity
 @Builder
 @Table(name ="tbl_crew")
 public class CrewEntity extends BaseEntity {
+
     @Comment("크루 관리 아이디")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long crewId;
 
 
-    @Column(unique = true)
+    @Column(nullable = false,unique = true)
     private String crewName;
 
     @ManyToOne(fetch = FetchType.LAZY)
