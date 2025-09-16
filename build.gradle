@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.clb'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 description = 'cliembing'
 
 java {
@@ -40,7 +40,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    runtimeOnly 'org.springframework.boot:spring-boot-starter-tomcat'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
 }
 

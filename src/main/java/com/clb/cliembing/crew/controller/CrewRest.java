@@ -1,6 +1,5 @@
 package com.clb.cliembing.crew.controller;
 
-import com.clb.cliembing.crew.dto.CrewCreateRequestDto;
 import com.clb.cliembing.crew.dto.CrewDto;
 import com.clb.cliembing.crew.service.CrewService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ public class CrewRest {
 
     // 크루 생성
     @PostMapping
-    public ResponseEntity<Long> createCrew(@RequestBody CrewCreateRequestDto requestDto) {
+    public ResponseEntity<Long> createCrew(@RequestBody CrewDto.CrewCreateInDto requestDto) {
         Long crewId = crewService.createCrew(requestDto);
         return ResponseEntity.ok(crewId);
     }

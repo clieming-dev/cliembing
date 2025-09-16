@@ -1,6 +1,5 @@
 package com.clb.cliembing.crew.service;
 
-import com.clb.cliembing.crew.dto.CrewCreateRequestDto;
 import com.clb.cliembing.crew.dto.CrewDto;
 import com.clb.cliembing.crew.entity.CrewEntity;
 import com.clb.cliembing.crew.repository.CrewRepository;
@@ -25,7 +24,7 @@ public class CrewService {
      * 크루 생성
      */
     @Transactional
-    public Long createCrew(CrewCreateRequestDto dto) {
+    public Long createCrew(CrewDto.CrewCreateInDto dto) {
         // ownerId로 UserEntity 조회
         UserEntity owner = userRepository.findById(dto.getOwnerId())
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 사용자입니다."));
