@@ -4,7 +4,9 @@ package com.clb.cliembing.user.entity;
 import com.clb.cliembing.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
@@ -13,11 +15,10 @@ import org.hibernate.annotations.SQLRestriction;
 
 @Slf4j
 @DynamicInsert
-@Data
 @Entity
-@Table(name = "tbl_user"
-)
-@Comment("요청시점의 승인 Step  계산하며, 실제 승인시 승인/반려 내역과, 승인일, 코멘트를 업데이트 머지, 배포, 점검 모두 여기에 이력 저장함")
+@Table(name = "tbl_user")
+@Comment("유저 테이블")
+@Getter @Setter
 @SQLRestriction(value = "is_deleted = false")
 @SQLDelete(sql = "UPDATE tbl_user SET is_deleted = true where id = ?")
 @NoArgsConstructor
@@ -47,5 +48,5 @@ public class UserEntity extends BaseEntity {
 
     private String birth;
 
-    private Long mainPicId;
+    private String mainPicId;
 }
