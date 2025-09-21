@@ -34,6 +34,7 @@ public class CrewDto {
     private Long ownerId;       // UserEntity 참조를 ID로 단순화
     private String ownerUserId; // 필요하면 owner의 userId
 
+    //Entity → DTO 변환
     public static CrewDto fromEntity(CrewEntity crew) {
         return CrewDto.builder()
                 .crewId(crew.getCrewId())
