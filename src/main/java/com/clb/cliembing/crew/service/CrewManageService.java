@@ -2,6 +2,7 @@ package com.clb.cliembing.crew.service;
 
 
 import com.clb.cliembing.crew.dto.CrewManageDto;
+import com.clb.cliembing.crew.entity.CrewEntity;
 import com.clb.cliembing.crew.repository.CrewRepository;
 import com.clb.cliembing.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +35,15 @@ public class CrewManageService {
         crewSearchOutDto.setRegion("영등포구");
         content.add(crewSearchOutDto);
         return new PageImpl<>(content, pageable, 1);
+    }
+
+    public CrewManageDto.CrewDetailOutDto getCrewInfo(CrewManageDto.CrewDetailInDto crewDetailInDto) {
+        Optional<CrewEntity> crewEntity = crewRepository.findById(crewDetailInDto.getCrewId());
+
+        if(crewEntity.isEmpty()){
+            throw new NoSuchElementException("요청하신 CrewID가 전재하지 않습니다.");
+        }
+        return CrewManageDto.CrewDetailOutDto.fromEntity(crewEntity.get());
+
     }
 }

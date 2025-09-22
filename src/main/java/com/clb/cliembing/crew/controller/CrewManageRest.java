@@ -4,6 +4,7 @@ import com.clb.cliembing.crew.dto.CrewManageDto;
 import com.clb.cliembing.crew.service.CrewManageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
@@ -32,5 +33,16 @@ public class CrewManageRest {
         @ParameterObject @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ){
         return crewManageService.searchCrew(crewSearchInDto, pageable);
+    }
+
+
+
+    @GetMapping
+    @Operation(
+            summary = "크루를 상세보기할수 있는 API",
+            description = "크루를 상세보기 할 수 있습니다."
+    )
+    public CrewManageDto.CrewDetailOutDto searchCrew(@Valid @ParameterObject CrewManageDto.CrewDetailInDto crewDetailInDto){
+        return crewManageService.getCrewInfo(crewDetailInDto);
     }
 }
