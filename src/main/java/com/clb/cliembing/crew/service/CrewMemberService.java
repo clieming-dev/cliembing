@@ -5,6 +5,7 @@ import com.clb.cliembing.crew.entity.CrewEntity;
 import com.clb.cliembing.crew.entity.CrewMemberEntity;
 import com.clb.cliembing.crew.repository.CrewMemberRepository;
 import com.clb.cliembing.crew.repository.CrewRepository;
+import com.clb.cliembing.gym.repository.GymRepository;
 import com.clb.cliembing.user.entity.UserEntity;
 import com.clb.cliembing.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
