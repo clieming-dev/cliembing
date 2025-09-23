@@ -37,12 +37,12 @@ public class CrewManageRest {
 
 
 
-    @GetMapping
+    @GetMapping("/detail")
     @Operation(
             summary = "크루를 상세보기할수 있는 API",
             description = "크루를 상세보기 할 수 있습니다."
     )
-    public CrewManageDto.CrewDetailOutDto searchCrew(@Valid @ParameterObject CrewManageDto.CrewDetailInDto crewDetailInDto){
+    public CrewManageDto.CrewDetailOutDto searchDetailCrew(@Valid @ParameterObject CrewManageDto.CrewDetailInDto crewDetailInDto){
         return crewManageService.getCrewInfo(crewDetailInDto);
     }
 }
