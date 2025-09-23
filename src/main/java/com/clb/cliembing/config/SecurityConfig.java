@@ -17,7 +17,9 @@ public class SecurityConfig {
             "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html"
     };
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http,
+                                    ApiAuthenticationEntryPoint entryPoint,
+                                    ApiAccessDeniedHandler deniedHandler) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -26,7 +28,11 @@ public class SecurityConfig {
                         .requestMatchers("/auth/token").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(entryPoint)      // 401 커스텀 [web:178]
+                        .accessDeniedHandler(deniedHandler)        // 403 커스텀 [web:183]
+                );
         return http.build();
     }
 
