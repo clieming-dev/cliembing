@@ -1,12 +1,10 @@
 package com.clb.cliembing.user.dto;
 
 import com.clb.cliembing.user.entity.UserEntity;
-import jakarta.persistence.Column;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
 
 @Data
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,7 +23,7 @@ public class UserDto {
         private String mbti;
         private Character gender;
         private String birth;
-        private Long mainPicId;
+        private String mainPicId;
 
 
         public UserEntity toUserEntity(UserDto.UserInsertDto userInsertDto){
@@ -57,7 +55,7 @@ public class UserDto {
         private String mbti;
         private Character gender;
         private String birth;
-        private Long mainPicId;
+        private String mainPicId;
 
         public UserOutDto fromEntity(UserEntity userEntity){
 
