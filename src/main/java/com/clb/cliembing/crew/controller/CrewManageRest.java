@@ -50,8 +50,8 @@ public class CrewManageRest {
             summary = "크루에 가입할 수 있는 API",
             description = "크루에 가입 할 수 있습니다."
     )
-    public ResponseEntity<String> joinCrew(@Valid @RequestBody CrewManageDto.JoinCrewInDto crewDetailInDto){
+    public ResponseEntity<Void> joinCrew(@Valid @RequestBody CrewManageDto.JoinCrewInDto crewDetailInDto){
         crewManageService.joinCrew(crewDetailInDto);
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok().build();
     }
 }
