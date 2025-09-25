@@ -11,9 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Tag(name = "크루 검색 & 가입", description = "크루 검색 & 가입")
@@ -44,5 +43,15 @@ public class CrewManageRest {
     )
     public CrewManageDto.CrewDetailOutDto searchDetailCrew(@Valid @ParameterObject CrewManageDto.CrewDetailInDto crewDetailInDto){
         return crewManageService.getCrewInfo(crewDetailInDto);
+    }
+
+    @PostMapping("/join")
+    @Operation(
+            summary = "크루에 가입할 수 있는 API",
+            description = "크루에 가입 할 수 있습니다."
+    )
+    public ResponseEntity<String> joinCrew(@Valid @RequestBody CrewManageDto.JoinCrewInDto crewDetailInDto){
+        crewManageService.joinCrew(crewDetailInDto);
+        return ResponseEntity.ok("ok");
     }
 }
