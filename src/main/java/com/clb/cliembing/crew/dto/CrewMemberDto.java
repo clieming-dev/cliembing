@@ -25,7 +25,7 @@ public class CrewMemberDto {
     //Entity → DTO 변환
     public static CrewMemberDto fromEntity(CrewMemberEntity crewMember){
         return CrewMemberDto.builder()
-                .crewMemberId(crewMember.getCrewMemberId())
+                .crewMemberId(crewMember.getId())
                 .crewId(crewMember.getCrew().getCrewId())
                 .userId(crewMember.getUser().getId())
                 .role(crewMember.getRole())
@@ -80,7 +80,7 @@ public class CrewMemberDto {
      */
     public static CrewMemberSearchOutDto toOutDto(CrewMemberEntity entity) {
         return CrewMemberSearchOutDto.builder()
-                .crewMemberId(entity.getCrewMemberId())
+                .crewMemberId(entity.getId())
                 .role(entity.getRole())
                 .user(UserInfo.builder()
                         .id(entity.getUser().getId())

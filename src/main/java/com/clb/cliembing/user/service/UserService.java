@@ -30,4 +30,12 @@ public class UserService {
 
         return userEntity.getId();
     }
+
+    public UserEntity getUserByUserId(String userId) {
+        Optional<UserEntity> optionalUser = userRepository.findByUserId(userId);
+        if(optionalUser.isEmpty()){
+            throw new NoSuchElementException("검색하려는 User가 존재하지 않습니다.");
+        }
+        return optionalUser.get();
+    }
 }

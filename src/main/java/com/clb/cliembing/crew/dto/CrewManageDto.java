@@ -126,6 +126,17 @@ public class CrewManageDto {
                     .build();
 
         }
-
     }
+
+    @Getter
+    public static class JoinCrewInDto {
+
+        @Schema(description = "가입인사",
+                example = "안녕하세요 주로 구로에서 클라이밍하고 있는 양지웅입니다..")
+        private String content;
+
+        @Schema(description = "크루 Id")
+        private Long crewId;
+    }
+
 }

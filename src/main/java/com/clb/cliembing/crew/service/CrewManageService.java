@@ -1,10 +1,12 @@
 package com.clb.cliembing.crew.service;
 
 
+import com.clb.cliembing.crew.dto.CrewDto;
 import com.clb.cliembing.crew.dto.CrewManageDto;
 import com.clb.cliembing.crew.entity.CrewEntity;
 import com.clb.cliembing.crew.repository.CrewRepository;
 import com.clb.cliembing.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -44,6 +46,16 @@ public class CrewManageService {
             throw new NoSuchElementException("요청하신 CrewID가 전재하지 않습니다.");
         }
         return CrewManageDto.CrewDetailOutDto.fromEntity(crewEntity.get());
+    }
+
+    public void joinCrew(CrewManageDto.JoinCrewInDto joinCrewInDto){
 
     }
+
+    public CrewManageDto.CrewDetailOutDto getCrew(Long crewId) {
+        CrewEntity crew = crewRepository.findById(crewId)
+                .orElseThrow(() -> new EntityNotFoundException("해당 크루가 존재하지 않습니다."));
+        return CrewManageDto.CrewDetailOutDto.fromEntity(crew);
+    }
+
 }
