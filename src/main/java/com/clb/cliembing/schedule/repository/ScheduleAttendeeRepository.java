@@ -17,4 +17,6 @@ public interface ScheduleAttendeeRepository extends JpaRepository<ScheduleAttend
     List<ScheduleAttendeeEntity> findByScheduleAndUser(ScheduleEntity schedule, UserEntity user);
 
     List<ScheduleAttendeeEntity> findByIsDeletedFalse();
+
+    boolean existsByScheduleAndUser(ScheduleEntity schedule, UserEntity user);
 }

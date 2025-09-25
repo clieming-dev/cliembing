@@ -22,4 +22,5 @@ public interface CommunicationRepository extends JpaRepository<CommunicationEnti
 
     // 고정 공지사항만 가져오기
     List<CommunicationEntity> findByCrewAndTypeAndIsPinnedTrueOrderByCreatedAtDesc(CrewEntity crew, CommunicationType type);
+
 }

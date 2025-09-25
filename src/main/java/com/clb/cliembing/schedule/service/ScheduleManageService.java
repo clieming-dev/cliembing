@@ -49,4 +49,14 @@ public class ScheduleManageService {
 
         return ScheduleManageDto.ScheduleDetailOutDto.fromEntity(scheduleEntity.get());
     }
+
+    public ScheduleManageDto.ScheduleAttendOutDto attendSchedule(ScheduleManageDto.ScheduleAttendInDto inDto) {
+        // TODO: 실제 참석 여부를 저장할 DB 처리 필요
+
+        String message = inDto.getAttend() ? "참석이 등록되었습니다." : "불참이 등록되었습니다.";
+
+        return ScheduleManageDto.ScheduleAttendOutDto.builder()
+                .message(message)
+                .build();
+    }
 }
