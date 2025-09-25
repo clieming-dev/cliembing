@@ -22,7 +22,7 @@ public class CrewMemberEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long crewMemberId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "crew_id", referencedColumnName = "crewId", nullable = false)
