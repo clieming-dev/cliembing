@@ -26,4 +26,10 @@ public class UserRest {
         return userService.insertUser(userInsertDto);
     }
 
+
+    @GetMapping(value = "/name/{userId}")
+    public UserEntity getUserByUserId(@PathVariable String userId) {
+        return userService.getUserByUserId(userId);
+    }
+
 }
