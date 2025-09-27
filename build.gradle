@@ -26,23 +26,40 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'org.postgresql:postgresql'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'  // JwtDecoder 등[1]
-    implementation 'org.springframework.security:spring-security-oauth2-jose'
+
+    // Spring Boot Starters — 핵심 웹/데이터/보안/검증 (Spring Boot 3.5.5)
+    implementation "org.springframework.boot:spring-boot-starter-web"              // Web MVC + Jackson JSON 컨버터 (→ 3.5.5)
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"         // JPA/Hibernate + 트랜잭션 (→ 3.5.5)
+    implementation "org.springframework.boot:spring-boot-starter-data-jdbc"        // 경량 JDBC 접근(선택) (→ 3.5.5)
+    implementation "org.springframework.boot:spring-boot-starter-security"         // Spring Security 6.x (→ 3.5.5)
+    implementation "org.springframework.boot:spring-boot-starter-validation"       // Jakarta Bean Validation (→ 3.5.5)
+
+    // OpenAPI/Swagger — API 문서 및 테스트 UI (springdoc 2.8.9, Boot 3.5.x 호환)
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9"       // Swagger UI + /v3/api-docs (→ 2.8.9)
+
+    // OAuth2 Resource Server — JWT 등 토큰 기반 보호 리소스 서버
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-resource-server" // Bearer 토큰 검증 (→ 3.5.5)
+    implementation "org.springframework.security:spring-security-oauth2-jose"             // JOSE/JWT 처리 (→ 6.5.3)
+
+    // DB Driver — PostgreSQL JDBC 드라이버
+    runtimeOnly "org.postgresql:postgresql:42.7.7"                                  // PostgreSQL 클라이언트 (→ 42.7.7)
+
+    // 개발 생산성 — Lombok/DevTools/Config Processor
+    compileOnly "org.projectlombok:lombok:1.18.38"                                  // 보일러플레이트 제거 (→ 1.18.38)
+    annotationProcessor "org.projectlombok:lombok:1.18.38"                          // Lombok 애노테이션 처리 (→ 1.18.38)
+    developmentOnly "org.springframework.boot:spring-boot-devtools:3.5.5"           // 실시간 리로드 등 (→ 3.5.5)
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:3.5.5" // @ConfigurationProperties 메타 [web:303]
+
+    // 파일 ID — 시간정렬형 UUID v7 생성기
+    implementation "com.github.f4b6a3:uuid-creator:6.1.0"                           // UUIDv7 생성 (→ 6.1.0)
+
+    // 내장 톰캣 제공 — 서블릿 컨테이너 외부 제공 시 사용(일반적으로 불필요)
+    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:3.5.5"     // Tomcat 스타터 (→ 3.5.5)
+
+    // 테스트 — Spring Test/Security Test/JUnit Platform
+    testImplementation "org.springframework.boot:spring-boot-starter-test:3.5.5"    // Spring Test/JUnit (→ 3.5.5)
+    testImplementation "org.springframework.security:spring-security-test:6.5.3"    // Security 테스트 유틸 (→ 6.5.3)
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"                     // JUnit 플랫폼 런처 (플러그인 관리) [
 }
 
 tasks.named('test') {

@@ -1,7 +1,6 @@
 package com.clb.cliembing.crew.service;
 
 
-import com.clb.cliembing.crew.dto.CrewDto;
 import com.clb.cliembing.crew.dto.CrewManageDto;
 import com.clb.cliembing.crew.entity.CrewEntity;
 import com.clb.cliembing.crew.repository.CrewRepository;
