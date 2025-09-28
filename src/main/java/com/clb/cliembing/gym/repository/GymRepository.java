@@ -21,6 +21,6 @@ public interface GymRepository extends JpaRepository<GymEntity, Long> {
     List<GymEntity> findAllByHasParkingTrueAndIsDeletedFalse();
 
     // 특정 ID 조회 (Soft Delete 반영)
-    GymEntity findByGymIdAndIsDeletedFalse(Long gymId);
+    GymEntity findByGymIdAndIsDeletedFalse(Long id);
 
 }

@@ -25,19 +25,19 @@ public class ScheduleAttendeeEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long scheduleAttendeeId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_id", referencedColumnName = "scheduleId", nullable = false)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id", nullable = false)
     private ScheduleEntity schedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gym_id", referencedColumnName = "gymId", nullable = false)
+    @JoinColumn(name = "gym_id", referencedColumnName = "id", nullable = false)
     @Comment("암장 ID")
     private GymEntity gym;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @Comment("유저 ID")
     private UserEntity user;
 
