@@ -48,7 +48,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:1.18.38"                                  // 보일러플레이트 제거 (→ 1.18.38)
     annotationProcessor "org.projectlombok:lombok:1.18.38"                          // Lombok 애노테이션 처리 (→ 1.18.38)
     developmentOnly "org.springframework.boot:spring-boot-devtools:3.5.5"           // 실시간 리로드 등 (→ 3.5.5)
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:3.5.5" // @ConfigurationProperties 메타 [web:303]
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:3.5.5" // @ConfigurationProperties 메타
 
     // 파일 ID — 시간정렬형 UUID v7 생성기
     implementation "com.github.f4b6a3:uuid-creator:6.1.0"                           // UUIDv7 생성 (→ 6.1.0)
@@ -59,7 +59,11 @@ dependencies {
     // 테스트 — Spring Test/Security Test/JUnit Platform
     testImplementation "org.springframework.boot:spring-boot-starter-test:3.5.5"    // Spring Test/JUnit (→ 3.5.5)
     testImplementation "org.springframework.security:spring-security-test:6.5.3"    // Security 테스트 유틸 (→ 6.5.3)
-    testRuntimeOnly "org.junit.platform:junit-platform-launcher"                     // JUnit 플랫폼 런처 (플러그인 관리) [
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"                     // JUnit 플랫폼 런처 (플러그인 관리)
+
+    //편의를 위한 library=
+    implementation 'org.mapstruct:mapstruct:1.6.3' // DTO 매핑용
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3' //https://mapstruct.org/documentation 참고
 }
 
 tasks.named('test') {

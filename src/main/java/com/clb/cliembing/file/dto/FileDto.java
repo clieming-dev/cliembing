@@ -30,7 +30,7 @@ public class FileDto {
     @Data
     @AllArgsConstructor(access = AccessLevel.PROTECTED)
     @NoArgsConstructor
-    public static class SearchOutInfo {
+    public static class infoDto {
         private UUID id;              // 저장 식별자
         private String originalName;    // 원본 파일명
         private Long fileSize;          // 저장된 바이트 수

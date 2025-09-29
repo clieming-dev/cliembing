@@ -25,13 +25,12 @@ public class FileRest {
 
     @Operation(summary = "이미지 업로드", description = "이미지 파일만 업로드를 허용하며 카테고리 정책에 따라 압축/거부가 적용됩니다.")
     @PostMapping(value = "/upload/{category}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FileDto> uploadImage(
+    public ResponseEntity<FileDto.infoDto> uploadImage(
             @Parameter(description = "이미지 카테고리(ICON, PROFILE, FEED, BOARD)", example = "PROFILE", required = true)
             @PathVariable("category") ImageCategory category,
             @Parameter(description = "업로드할 이미지 파일", required = true)
             @RequestPart("file") MultipartFile file
     ) throws IOException {
-        FileDto info = fileService.saveImage(file, category);
-        return ResponseEntity.ok(info);
+        return ResponseEntity.ok(fileService.saveImage(file, category));
     }
 }
