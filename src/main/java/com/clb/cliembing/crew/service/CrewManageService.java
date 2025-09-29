@@ -57,4 +57,7 @@ public class CrewManageService {
         return CrewManageDto.CrewDetailOutDto.fromEntity(crew);
     }
 
+    public void createCrew(CrewManageDto.CreateInDto createInDto) {
+
+    }
 }
