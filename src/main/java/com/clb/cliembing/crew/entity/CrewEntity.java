@@ -15,23 +15,24 @@ import org.hibernate.annotations.SQLRestriction;
 @Comment("크루(팀) 기본 정보 테이블")
 @SQLRestriction(value = "is_deleted = false")
 @SQLDelete(sql = "UPDATE tbl_crew SET is_deleted = true WHERE crew_id = ?")
-@Data
+@Getter
 @Entity
-@Builder
 @Table(name ="tbl_crew")
+@NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
+@Builder
 public class CrewEntity extends BaseEntity {
 
     @Comment("크루 관리 아이디")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long crewId;
+    private Long id;
 
 
     @Column(nullable = false,unique = true)
     private String crewName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ownerId", referencedColumnName = "id")
+    @JoinColumn(name = "owner_id")
     @Comment("크루 생성자")
     private UserEntity owner;
 

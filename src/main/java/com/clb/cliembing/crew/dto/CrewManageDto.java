@@ -112,7 +112,7 @@ public class CrewManageDto {
 
         public static CrewDetailOutDto fromEntity(CrewEntity crew){
             return CrewDetailOutDto.builder()
-                    .crewId(crew.getCrewId())
+                    .crewId(crew.getId())
                     .crewName(crew.getCrewName())
                     .description(crew.getDescription())
                     .recruitmentStatus(crew.getRecruitmentStatus())

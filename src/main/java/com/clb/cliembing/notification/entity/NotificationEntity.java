@@ -24,12 +24,12 @@ public class NotificationEntity extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="user_id", nullable = false)
     @Comment("알림 생성 유저")
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="crew_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="crew_id", nullable = false)
     @Comment("관련 크루")
     private CrewEntity crew;
 

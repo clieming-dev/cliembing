@@ -25,12 +25,12 @@ public class CrewMemberEntity extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "crew_id", referencedColumnName = "crewId", nullable = false)
+    @JoinColumn(name = "crew_id", nullable = false)
     @Comment("소속된 크루")
     private CrewEntity crew;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @Comment("사용자")
     private UserEntity user;
 

@@ -29,17 +29,17 @@ public class ScheduleEntity extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="gym_id", referencedColumnName = "id",nullable = false)
+    @JoinColumn(name="gym_id",nullable = false)
     @Comment("암장 ID")
     private GymEntity gym;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "user_id",nullable = false)
     @Comment("유저ID")
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "crew_id", referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "crew_id",nullable = false)
     private CrewEntity crew;
 
     @Comment("스케쥴 제목")

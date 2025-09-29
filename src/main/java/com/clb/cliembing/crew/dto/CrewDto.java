@@ -37,7 +37,7 @@ public class CrewDto {
     //Entity → DTO 변환
     public static CrewDto fromEntity(CrewEntity crew) {
         return CrewDto.builder()
-                .crewId(crew.getCrewId())
+                .crewId(crew.getId())
                 .crewName(crew.getCrewName())
                 .description(crew.getDescription())
                 .recruitmentStatus(crew.getRecruitmentStatus())

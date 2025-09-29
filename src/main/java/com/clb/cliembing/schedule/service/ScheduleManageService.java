@@ -24,7 +24,7 @@ public class ScheduleManageService {
 
         // 🧪 MOCK 데이터 예시 (추후 DB 연동)
         ScheduleManageDto.ScheduleSearchOutDto dto = ScheduleManageDto.ScheduleSearchOutDto.builder()
-                .scheduleId(1L)
+                .id(1L)
                 .title("주말 클라이밍 번개")
                 .description("홍대 더클라임에서 클라이밍 모임")
                 .startTime(java.sql.Timestamp.valueOf("2025-09-28 10:00:00"))
@@ -41,7 +41,7 @@ public class ScheduleManageService {
     }
 
     public ScheduleManageDto.ScheduleDetailOutDto getScheduleInfo(ScheduleManageDto.SchduleDetailInDto inDto) {
-        Optional<ScheduleEntity> scheduleEntity = scheduleRepository.findById(inDto.getScheduleId());
+        Optional<ScheduleEntity> scheduleEntity = scheduleRepository.findById(inDto.getId());
 
         if (scheduleEntity.isEmpty()) {
             throw new NoSuchElementException("요청하신 ScheduleID가 존재하지 않습니다.");
