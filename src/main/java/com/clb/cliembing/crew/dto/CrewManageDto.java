@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+import org.hibernate.annotations.Comment;
 
 @Getter
 public class CrewManageDto {
@@ -138,5 +139,30 @@ public class CrewManageDto {
         @Schema(description = "크루 Id")
         private Long crewId;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @Comment("크루 생성 요청용")
+    public static class CreateInDto {
+        private String crewName;
+
+        private String description;
+
+        private String recruitmentStatus;
+
+        private Boolean isPublic;
+
+        private String region;
+
+        private String preferredAge;
+
+        private String mainPicId;
+
+        private Long ownerId;  // 어떤 유저가 만든 건지
+    }
+
 
 }
