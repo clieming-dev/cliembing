@@ -22,7 +22,7 @@ public interface CrewMemberRepository extends JpaRepository<CrewMemberEntity, Lo
     List<CrewMemberEntity> findByUser_Id(Long userId);
 
     // 크루 ID로 조회
-    List<CrewMemberEntity> findByCrew_CrewId(Long crewId);
+    List<CrewMemberEntity> findByCrew_Id(Long crewId);
 
     // 특정 유저가 특정 크루에 속해 있는지
     Optional<CrewMemberEntity> findByCrewAndUser(CrewEntity crew, UserEntity user);

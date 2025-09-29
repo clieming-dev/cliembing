@@ -21,7 +21,7 @@ public class GymEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long gymId;
+    private Long id;
 
     @Column(nullable = false)
     private String gymName;

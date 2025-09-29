@@ -47,7 +47,7 @@ public class CrewMemberService {
      * 특정 크루에 속한 모든 멤버 조회
      */
     public List<CrewMemberDto.CrewMemberSearchOutDto> getCrewMembersByCrewId(Long crewId) {
-        List<CrewMemberEntity> members = crewMemberRepository.findByCrew_CrewId(crewId);
+        List<CrewMemberEntity> members = crewMemberRepository.findByCrew_Id(crewId);
         return members.stream()
                 .map(CrewMemberDto::toOutDto)
                 .collect(Collectors.toList());

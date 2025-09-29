@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +38,13 @@ public class ScheduleManageRest {
             @Valid @ParameterObject ScheduleManageDto.SchduleDetailInDto detailInDto
     ) {
         return scheduleManageService.getScheduleInfo(detailInDto);
+    }
+
+    @PostMapping("/attend")
+    @Operation(summary = "일정 참석/불참 API", description = "사용자가 일정에 참석 또는 불참 여부를 등록합니다.")
+    public ScheduleManageDto.ScheduleAttendOutDto attendSchedule(
+            @Valid @RequestBody ScheduleManageDto.ScheduleAttendInDto dto
+    ) {
+        return scheduleManageService.attendSchedule(dto);
     }
 }

@@ -4,6 +4,7 @@ import com.clb.cliembing.config.UuidV7Generator;
 import com.clb.cliembing.file.dto.FileDto;
 import com.clb.cliembing.file.entity.FileEntity;
 import com.clb.cliembing.file.entity.ImageCategory;
+import com.clb.cliembing.file.mapper.FileMapper;
 import com.clb.cliembing.file.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +36,10 @@ public class FileService {
 
     private final UuidV7Generator uuidV7Generator;
 
+    private final FileMapper fileMapper;
+
     @Transactional
-    public FileDto.AllInfo saveImage(MultipartFile file, ImageCategory category) throws IOException {
+    public FileDto.infoDto saveImage(MultipartFile file, ImageCategory category) throws IOException {
 
         // 1. input 확인
         if (file == null || file.isEmpty()) throw new IllegalArgumentException("빈 파일은 업로드할 수 없습니다.");
@@ -80,29 +83,12 @@ public class FileService {
         }
 
         // 5. DB저장
-        FileEntity entity = new FileEntity();
-        entity.setId(id);
-        entity.setFileName(storedName);
-        entity.setFilePath(savePath.toString());
-        entity.setFileType('I');   //이미지는 I!!!
-        entity.setFileSize(finalSize);
-        entity.setCategory(category.getCode()); // I/P/F/B
-        entity.setFileExt(ext);
-        entity.setContentType(mime);
+        FileEntity entity = FileEntity.create(id, storedName, savePath.toString(),
+                'I', finalSize, category.getCode(), ext, mime);
         fileRepository.save(entity);
 
         // todo savePath 응답시에 꼭 빼기!!!! id랑 filename만 보내면 되지않을까..? filename도 뺄까..
-        return FileDto.AllInfo.builder()
-                .id(id)
-                .fileName(storedName)
-                .originalName(original)
-                .filePath(savePath.toString())
-                .fileType('I')
-                .category(category.getCode())
-                .fileSize(finalSize)
-                .contentType(mime)
-                .fileExt(ext)
-                .build();
+        return fileMapper.toInfoDto(entity);
     }
 
     private String extractExt(String original) {

@@ -3,18 +3,13 @@ package com.clb.cliembing.communication.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Getter
 public class CommuManageDto {
 
-    /**
-     * 🔎 [공지사항 / 게시글 조회 요청 DTO]
-     */
     @Getter
     @Builder
     @Schema(description = "공지/게시글 조회 요청 DTO")
@@ -26,12 +21,9 @@ public class CommuManageDto {
 
         @Schema(description = "게시글 타입", example = "notice", allowableValues = {"notice", "post"})
         @NotBlank
-        private String type; // notice | post
+        private String type;
     }
 
-    /**
-     * 📄 [공지사항 / 게시글 조회 응답 DTO]
-     */
     @Getter
     @Builder
     @Schema(description = "공지/게시글 조회 응답 DTO")
@@ -59,9 +51,6 @@ public class CommuManageDto {
         private boolean isPinned;
     }
 
-    /**
-     * 🆕 [공지/게시글 생성 요청 DTO]
-     */
     @Getter
     @Setter
     @NoArgsConstructor
@@ -94,9 +83,6 @@ public class CommuManageDto {
         private boolean isPinned;
     }
 
-    /**
-     * ✅ [공지/게시글 생성 응답 DTO]
-     */
     @Getter
     @Builder
     @Schema(description = "공지/게시글 생성 응답 DTO")
@@ -109,9 +95,6 @@ public class CommuManageDto {
         private String message;
     }
 
-    /**
-     * 📰 [뉴스피드 조회 응답 DTO]
-     */
     @Getter
     @Builder
     @Schema(description = "뉴스피드 조회 응답 DTO")
@@ -142,9 +125,6 @@ public class CommuManageDto {
         private int likeCount;
     }
 
-    /**
-     * 💬 [댓글 작성 요청 DTO]
-     */
     @Getter
     @Setter
     @NoArgsConstructor
@@ -166,9 +146,6 @@ public class CommuManageDto {
         private String content;
     }
 
-    /**
-     * 💬 [댓글 작성 응답 DTO]
-     */
     @Getter
     @Builder
     @Schema(description = "댓글 작성 응답 DTO")
@@ -181,9 +158,6 @@ public class CommuManageDto {
         private String message;
     }
 
-    /**
-     * 💬 [댓글 조회 응답 DTO]
-     */
     @Getter
     @Builder
     @Schema(description = "댓글 조회 응답 DTO")
@@ -204,5 +178,4 @@ public class CommuManageDto {
         @Schema(description = "작성일시", example = "2025-09-21T12:30:00")
         private Timestamp createdAt;
     }
-
 }

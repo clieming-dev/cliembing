@@ -34,7 +34,7 @@ public class ScheduleManageDto {
     public static class ScheduleSearchOutDto{
 
         @Schema(description = "일정ID", example = "1")
-        private Long scheduleId;
+        private Long id;
 
         @Schema(description = "제목",example = "주말 클라이밍 번개", maxLength = 100)
         private String title;
@@ -68,7 +68,7 @@ public class ScheduleManageDto {
         @Schema(description = "일정 ID", example = "1")
         @NotNull
         @Positive
-        private Long scheduleId;
+        private Long id;
     }
 
     @Data
@@ -77,7 +77,7 @@ public class ScheduleManageDto {
     public static class ScheduleDetailOutDto {
 
         @Schema(description = "일정 ID", example = "1")
-        private Long scheduleId;
+        private Long id;
 
         @Schema(description = "제목", example = "평일 저녁 클라이밍")
         private String title;
@@ -108,7 +108,7 @@ public class ScheduleManageDto {
 
         public static ScheduleDetailOutDto fromEntity(ScheduleEntity schedule){
             return ScheduleDetailOutDto.builder()
-                    .scheduleId(schedule.getScheduleId())
+                    .id(schedule.getId())
                     .title(schedule.getTitle())
                     .description(schedule.getDescription())
                     .startTime(schedule.getStartTime())
