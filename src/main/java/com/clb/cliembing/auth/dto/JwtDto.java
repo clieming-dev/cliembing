@@ -17,6 +17,7 @@ public class JwtDto {
 
     @Getter @Setter @NoArgsConstructor
     public static class MetaData  {
+        private String userId;
         private String userName;
         private List<String> roles;
         private List<CrewRoleDto> crewRole;

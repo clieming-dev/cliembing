@@ -74,6 +74,7 @@ public class AuthService {
 
         JwtDto.MetaData metaData = new JwtDto.MetaData();
         //todo user테이블 이후 만들기
+        metaData.setUserId(userId);
         metaData.setUserName("양지웅");
         metaData.setRoles(roles);
         metaData.setCrewRole(crewRole);
