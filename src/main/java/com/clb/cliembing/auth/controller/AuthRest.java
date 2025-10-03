@@ -4,12 +4,9 @@ package com.clb.cliembing.auth.controller;
 import com.clb.cliembing.auth.dto.JwtDto;
 import com.clb.cliembing.auth.service.AuthService;
 import jakarta.security.auth.message.AuthException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2Error;
-import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
@@ -33,14 +30,15 @@ public class AuthRest {
 
     @PostMapping("/token")
     public JwtDto.IssueTokenResponseDto issueToken(
-            @RequestHeader(name = AUTH_HEADER_NAME, required = true) String headerAuthorization,
             @RequestParam(name = GRANT_TYPE) String grantType,
             @RequestParam(name = SCOPE, required = false) String scope,
             @RequestParam(name = USERNAME, required = false) String username,
             @RequestParam(name = PASSWORD, required = false) String password,
-            @RequestParam(name = REFRESH_TOKEN, required = false) String refreshToken
+            @RequestParam(name = REFRESH_TOKEN, required = false) String refreshToken,
+            HttpServletRequest httpServletRequest
     ) throws AuthException {
-        authService.parseAndValidateBasic(headerAuthorization);
+        log.info(httpServletRequest.getHeader("Authorization"));
+        authService.parseAndValidateBasic(httpServletRequest.getHeader("Authorization"));
         switch (grantType) {
             case "client_credentials":
                 return authService.issueToken(username);

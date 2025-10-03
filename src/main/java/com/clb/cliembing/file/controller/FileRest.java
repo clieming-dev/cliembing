@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +33,16 @@ public class FileRest {
             @RequestPart("file") MultipartFile file
     ) throws IOException {
         return ResponseEntity.ok(fileService.saveImage(file, category));
+    }
+
+
+
+    @Operation(summary = "이미지 다운로드", description = "파일 id로 저장된 이미지를 다운로드합니다.")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<Resource> downloadImage(
+            @Parameter(description = "파일 UUID(v7) id", required = true, example = "019988f4-fe3a-7efd-9646-90223c3fbe8c")
+            @PathVariable("id") String id
+    ) throws IOException {
+        return fileService.loadAsResponse(id);
     }
 }

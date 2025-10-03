@@ -9,19 +9,25 @@ import com.clb.cliembing.file.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 
 @Service
@@ -61,9 +67,8 @@ public class FileService {
         Files.createDirectories(dir); // 멱등 [web:233]
 
         // 3.파일명
-        UUID id = uuidV7Generator.generate(); // v7 [web:292]
-        String storedName = ext.isBlank() ? id.toString() : id + "." + ext.toLowerCase(Locale.ROOT);
-        Path savePath = dir.resolve(storedName);
+        UUID id = uuidV7Generator.generate();
+        Path savePath = dir.resolve(original);
 
         // 4.파일저장
         long finalSize;
@@ -83,7 +88,7 @@ public class FileService {
         }
 
         // 5. DB저장
-        FileEntity entity = FileEntity.create(id, storedName, savePath.toString(),
+        FileEntity entity = FileEntity.create(id, original, savePath.toString(),
                 'I', finalSize, category.getCode(), ext, mime);
         fileRepository.save(entity);
 
@@ -100,5 +105,35 @@ public class FileService {
     //todo 나중에 구현
     private byte[] compressImage(byte[] input, String ext, ImageCategory.CompressionLevel level) {
         return input;
+    }
+
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<Resource> loadAsResponse(String id) throws IOException {
+        FileEntity fileEntity = fileRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new NoSuchElementException("파일을 찾을 수 없습니다: " + id));
+
+        Path path = Paths.get(fileEntity.getFilePath()); // DB에 저장된 절대경로나 안전한 루트 기준 경로
+        if (!Files.exists(path) || !Files.isReadable(path)) {
+            throw new FileNotFoundException("파일에 접근할 수 없습니다: " + id);
+        }
+
+        String downloadName = Optional.ofNullable(fileEntity.getFileName()).orElse(id.toString());
+
+        String contentType = Optional.ofNullable(fileEntity.getContentType())
+                .orElseGet(() ->  MediaType.APPLICATION_OCTET_STREAM_VALUE);
+
+        ContentDisposition disposition = ContentDisposition.attachment()
+                .filename(downloadName, StandardCharsets.UTF_8)
+                .build();
+
+        // Resource 본문
+        Resource resource = new FileSystemResource(path);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .contentLength(Files.size(path))
+                .header(HttpHeaders.CONTENT_DISPOSITION, disposition.toString())
+                .body(resource);
+
     }
 }
