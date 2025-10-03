@@ -47,4 +47,12 @@ public class ScheduleManageRest {
     ) {
         return scheduleManageService.attendSchedule(dto);
     }
+
+    @PostMapping("/create")
+    @Operation(summary = "일정 생성 API", description = "새로운 일정을 생성합니다.")
+    public ScheduleManageDto.ScheduleCreateOutDto createSchedule(
+            @Valid @RequestBody ScheduleManageDto.ScheduleCreateInDto dto
+    ) {
+        return scheduleManageService.createSchedule(dto);
+    }
 }

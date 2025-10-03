@@ -130,7 +130,7 @@ public class ScheduleManageDto {
     @Schema(description = "일정 생성 요청 DTO")
     public static class ScheduleCreateInDto{
 
-        @Schema(description = "제목", example = "주말 클라이밍 번개", maxLength = 100)
+        @Schema(description = "제목", example = "주말 클라이밍 깜짝 이벤트", maxLength = 100)
         @NotBlank
         private String title;
 

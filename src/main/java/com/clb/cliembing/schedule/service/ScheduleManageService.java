@@ -1,8 +1,15 @@
 package com.clb.cliembing.schedule.service;
 
+import com.clb.cliembing.crew.entity.CrewEntity;
+import com.clb.cliembing.crew.repository.CrewRepository;
+import com.clb.cliembing.gym.entity.GymEntity;
+import com.clb.cliembing.gym.repository.GymRepository;
 import com.clb.cliembing.schedule.dto.ScheduleManageDto;
 import com.clb.cliembing.schedule.entity.ScheduleEntity;
 import com.clb.cliembing.schedule.repository.ScheduleRepository;
+import com.clb.cliembing.user.entity.UserEntity;
+import com.clb.cliembing.user.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +23,9 @@ import java.util.Optional;
 public class ScheduleManageService {
 
     private final ScheduleRepository scheduleRepository;
+    private final CrewRepository crewRepository;
+    private final UserRepository userRepository;
+    private final GymRepository gymRepository;
 
     // List로 응답
     public List<ScheduleManageDto.ScheduleSearchOutDto> searchSchedule(ScheduleManageDto.ScheduleSearchInDto inDto) {
@@ -57,6 +67,43 @@ public class ScheduleManageService {
 
         return ScheduleManageDto.ScheduleAttendOutDto.builder()
                 .message(message)
+                .build();
+    }
+
+    public ScheduleManageDto.ScheduleCreateOutDto createSchedule(ScheduleManageDto.@Valid ScheduleCreateInDto dto) {
+
+        //  필요한 Entity 조회
+        CrewEntity crew = crewRepository.findById(dto.getCrewId())
+                .orElseThrow(() -> new NoSuchElementException("크루 정보 없음"));
+
+        UserEntity user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new NoSuchElementException("유저 정보 없음"));
+
+        GymEntity gym = gymRepository.findById(dto.getGymId())
+                .orElseThrow(() -> new NoSuchElementException("암장 정보 없음"));
+
+
+        // 1. ScheduleEntity로 변환
+        ScheduleEntity entity = ScheduleEntity.builder()
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .startTime(dto.getStartTime())
+                .endTime(dto.getEndTime())
+                .location(dto.getLocation())
+                .scheduleType(ScheduleEntity.ScheduleType.valueOf(dto.getScheduleType().toUpperCase()))
+                .crew(crew)
+                .user(user)
+                .gym(gym)
+                .isDeleted(false)
+                .build();
+
+        // 2. 저장
+        ScheduleEntity saved = scheduleRepository.save(entity);
+
+        // 3. 응답 생성
+        return ScheduleManageDto.ScheduleCreateOutDto.builder()
+                .scheduleId(saved.getScheduleId())
+                .message("일정이 성공적으로 생성되었습니다.")
                 .build();
     }
 }
