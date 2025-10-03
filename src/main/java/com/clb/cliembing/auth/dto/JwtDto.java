@@ -10,6 +10,7 @@ public class JwtDto {
     @Builder
     public static class IssueTokenResponseDto {
         private String accessToken;
+        private String refreshToken;
         private String tokenType;
         private Long expiresIn;
     }
