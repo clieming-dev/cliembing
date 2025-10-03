@@ -21,7 +21,7 @@ public class NotificationEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long notificationId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
@@ -29,7 +29,7 @@ public class NotificationEntity extends BaseEntity {
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="crewId", referencedColumnName = "crewId", nullable = false)
+    @JoinColumn(name="crew_id", referencedColumnName = "id", nullable = false)
     @Comment("관련 크루")
     private CrewEntity crew;
 
