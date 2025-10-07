@@ -35,7 +35,7 @@ public class CrewMemberDto {
     public static CrewMemberDto fromEntity(CrewMemberEntity crewMember){
         return CrewMemberDto.builder()
                 .crewMemberId(crewMember.getId())
-                .crewId(crewMember.getCrew().getCrewId())
+                .crewId(crewMember.getCrew().getId())
                 .userId(crewMember.getUser().getId())
                 .role(crewMember.getRole())
                 .userLoginId(crewMember.getUser().getUserId())

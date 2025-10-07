@@ -6,15 +6,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -26,9 +25,8 @@ import java.util.UUID;
 @SQLDelete(sql = "UPDATE tbl_file_info SET is_deleted = true where id = ?")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED) @AllArgsConstructor
 public class FileEntity extends BaseEntity {
-
 
     @Id
     @Column(columnDefinition = "uuid", nullable = false)
@@ -54,4 +52,20 @@ public class FileEntity extends BaseEntity {
 
     @Column(name = "content_type", length = 100)
     private String contentType;
+
+    public static FileEntity create(UUID id, String storedName, String path,
+                                    char type, long size, Character category,
+                                    String ext, String mime) {
+        Objects.requireNonNull(id, "id");
+        FileEntity e = new FileEntity();
+        e.id = id;
+        e.fileName = storedName;
+        e.filePath = path;
+        e.fileType = type;
+        e.fileSize = size;
+        e.category = category;
+        e.fileExt = ext;
+        e.contentType = mime;
+        return e;
+    }
 }

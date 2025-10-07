@@ -54,4 +54,14 @@ public class CrewManageRest {
         crewManageService.joinCrew(crewDetailInDto);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/create")
+    @Operation(
+            summary = "크루를 생성할 수 있는 API",
+            description = "크루를 생성 할 수 있습니다."
+    )
+    public ResponseEntity<Void> createCrew(@Valid @RequestBody CrewManageDto.CreateInDto createInDto){
+        crewManageService.createCrew(createInDto);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +26,23 @@ public class FileRest {
 
     @Operation(summary = "이미지 업로드", description = "이미지 파일만 업로드를 허용하며 카테고리 정책에 따라 압축/거부가 적용됩니다.")
     @PostMapping(value = "/upload/{category}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FileDto.AllInfo> uploadImage(
+    public ResponseEntity<FileDto.infoDto> uploadImage(
             @Parameter(description = "이미지 카테고리(ICON, PROFILE, FEED, BOARD)", example = "PROFILE", required = true)
             @PathVariable("category") ImageCategory category,
             @Parameter(description = "업로드할 이미지 파일", required = true)
             @RequestPart("file") MultipartFile file
     ) throws IOException {
-        FileDto.AllInfo info = fileService.saveImage(file, category);
-        return ResponseEntity.ok(info);
+        return ResponseEntity.ok(fileService.saveImage(file, category));
+    }
+
+
+
+    @Operation(summary = "이미지 다운로드", description = "파일 id로 저장된 이미지를 다운로드합니다.")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<Resource> downloadImage(
+            @Parameter(description = "파일 UUID(v7) id", required = true, example = "019988f4-fe3a-7efd-9646-90223c3fbe8c")
+            @PathVariable("id") String id
+    ) throws IOException {
+        return fileService.loadAsResponse(id);
     }
 }

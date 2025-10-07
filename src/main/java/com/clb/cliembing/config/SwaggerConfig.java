@@ -14,18 +14,31 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI openAPI() {
+
+
         SecurityScheme bearer = new SecurityScheme()
                 .type(SecurityScheme.Type.HTTP)
                 .scheme("bearer")
                 .bearerFormat("JWT")
                 .in(SecurityScheme.In.HEADER)
                 .name("Authorization");
+
+        SecurityScheme basicAuth = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("basic")
+                .in(SecurityScheme.In.HEADER)
+                .name("Authorization");
+
+
+
         return new OpenAPI()
                 .info(new Info()
                         .title("클 아 이 밍")
                         .version("v0.1")
                         .description("가보자고~"))
-                .components(new Components().addSecuritySchemes("bearerAuth", bearer))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
+                .components(new Components().addSecuritySchemes("bearerAuth", bearer).addSecuritySchemes("basicAuth", basicAuth))
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .addSecurityItem(new SecurityRequirement().addList("basicAuth"))
+                ;
     }
 }

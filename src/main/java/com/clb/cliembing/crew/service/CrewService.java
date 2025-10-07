@@ -42,7 +42,7 @@ public class CrewService {
                 .build();
 
         crewRepository.save(crew);
-        return crew.getCrewId();
+        return crew.getId();
     }
 
     /**

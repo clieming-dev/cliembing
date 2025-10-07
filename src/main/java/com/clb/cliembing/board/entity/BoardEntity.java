@@ -25,12 +25,12 @@ public class BoardEntity extends BaseEntity {
     private Long boardId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name ="user_id", nullable = false)
     @Comment("작성자")
     private UserEntity writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="crew_id",referencedColumnName = "crewId")
+    @JoinColumn(name ="id")
     @Comment("관련 크루 (없을수도 있음)")
     private CrewEntity crew;
 
