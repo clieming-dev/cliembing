@@ -102,7 +102,7 @@ public class ScheduleManageService {
 
         // 3. 응답 생성
         return ScheduleManageDto.ScheduleCreateOutDto.builder()
-                .scheduleId(saved.getScheduleId())
+                .scheduleId(saved.getId())
                 .message("일정이 성공적으로 생성되었습니다.")
                 .build();
     }

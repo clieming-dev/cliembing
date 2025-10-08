@@ -58,6 +58,15 @@ public class CrewMemberRest {
         return ResponseEntity.ok(members);
     }
 
-    // 추가 예정 기능: 멤버 역할 변경, 멤버 추방, 출석 현황 보기 API 등도
+    // 추가 예정 기능:  멤버 추방, 출석 현황 보기 API 등도
     // @Operation 어노테이션과 함께 여기에 추가 가능
+
+    //일부만 필드 값만 수정하는거라 Patch사용 - 부분 업데이트
+    @PatchMapping("/{memberId}/role")
+    @Operation(summary = "멤버 역할 변경", description = "크루 멤버의 역할을 변경합니다.")
+    public ResponseEntity<Void> updateRole(@PathVariable Long memberId,
+                                           @RequestBody CrewMemberDto.RoleUpdateInDto dto) {
+        crewMemberService.updateCrewMemberRole(memberId, dto);
+        return ResponseEntity.ok().build();
+    }
 }

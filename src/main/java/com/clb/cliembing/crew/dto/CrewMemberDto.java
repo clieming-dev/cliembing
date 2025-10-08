@@ -116,4 +116,16 @@ public class CrewMemberDto {
                         .build())
                 .build();
     }
+
+    // 멤버 역할 변경 요청 DTO
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @Schema(description = "멤버 역할 변경 요청 DTO")
+    public static class RoleUpdateInDto {
+        @Schema(description = "새로운 역할", example = "ADMIN", required = true)
+        private String newRole;
+    }
 }

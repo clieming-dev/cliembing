@@ -85,4 +85,30 @@ public class CrewMemberService {
                 .map(CrewMemberDto::toOutDto)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * 크루 멤버 역할 변경
+     * @param memberId 변경할 크루 멤버 ID
+     * @param roleUpdateInDto 새로운 역할 정보 DTO
+     * @return 변경된 크루 멤버 DTO
+     * @throws IllegalArgumentException 존재하지 않는 멤버거나, 유효하지 않은 역할일 경우 예외 발생
+     */
+    public CrewMemberDto updateCrewMemberRole(Long memberId, CrewMemberDto.RoleUpdateInDto roleUpdateInDto) {
+        CrewMemberEntity crewMember = crewMemberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("크루 멤버가 존재하지 않습니다."));
+
+        // 역할 유효성 검사 예시 (선택사항)
+        String newRole = roleUpdateInDto.getNewRole();
+        if (newRole == null || newRole.isBlank()) {
+            throw new IllegalArgumentException("새로운 역할은 비어 있을 수 없습니다.");
+        }
+
+        // 역할 변경
+        crewMember.setRole(newRole);
+
+        // 변경된 멤버 저장
+        CrewMemberEntity updated = crewMemberRepository.save(crewMember);
+
+        return CrewMemberDto.fromEntity(updated);
+    }
 }
