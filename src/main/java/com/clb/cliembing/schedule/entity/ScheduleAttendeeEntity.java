@@ -12,6 +12,8 @@ import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLDelete(sql = "UPDATE tbl_schedule_attendee SET is_deleted = true WHERE schedule_attendee_id = ?")
@@ -44,5 +46,6 @@ public class ScheduleAttendeeEntity extends BaseEntity {
     @Column(name = "is_attending", nullable = false)
     @Comment("참석 여부")
     private Boolean isAttending;
+
 
 }

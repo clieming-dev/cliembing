@@ -13,6 +13,8 @@ import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Comment("일정 정보 테이블")
@@ -53,6 +55,9 @@ public class ScheduleEntity extends BaseEntity {
 
     @Comment("종료 시간")
     private java.sql.Timestamp endTime;
+
+    @Column(name = "schedule_date", nullable = false)
+    private LocalDate date;
 
     private String location;
 

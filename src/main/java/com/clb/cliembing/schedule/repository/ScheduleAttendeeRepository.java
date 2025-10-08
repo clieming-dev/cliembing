@@ -6,6 +6,7 @@ import com.clb.cliembing.user.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -19,4 +20,9 @@ public interface ScheduleAttendeeRepository extends JpaRepository<ScheduleAttend
     List<ScheduleAttendeeEntity> findByIsDeletedFalse();
 
     boolean existsByScheduleAndUser(ScheduleEntity schedule, UserEntity user);
+
+    //출석 현황 조회
+    List<ScheduleAttendeeEntity> findByUser_IdInAndIsAttendingTrueAndSchedule_DateBetween(
+            List<Long> userIds, LocalDate startDate, LocalDate endDate);
+
 }
