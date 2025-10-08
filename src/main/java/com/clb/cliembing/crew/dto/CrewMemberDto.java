@@ -128,4 +128,18 @@ public class CrewMemberDto {
         @Schema(description = "새로운 역할", example = "ADMIN", required = true)
         private String newRole;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Schema(description = "크루 멤버 삭제(추방) 응답 DTO")
+    public class CrewMemberDeleteOutDto {
+
+        @Schema(description = "삭제된 크루 멤버의 ID", example = "123")
+        private Long crewMemberId;
+
+        @Schema(description = "삭제 처리 결과 메시지", example = "해당 멤버가 성공적으로 추방되었습니다.")
+        private String message;
+    }
 }

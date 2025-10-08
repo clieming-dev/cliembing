@@ -58,7 +58,7 @@ public class CrewMemberRest {
         return ResponseEntity.ok(members);
     }
 
-    // 추가 예정 기능:  멤버 추방, 출석 현황 보기 API 등도
+    // 추가 예정 기능:  출석 현황 보기 API
     // @Operation 어노테이션과 함께 여기에 추가 가능
 
     //일부만 필드 값만 수정하는거라 Patch사용 - 부분 업데이트
@@ -68,5 +68,12 @@ public class CrewMemberRest {
                                            @RequestBody CrewMemberDto.RoleUpdateInDto dto) {
         crewMemberService.updateCrewMemberRole(memberId, dto);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{memberId}")
+    @Operation(summary = "크루 멤버 추방", description = "해당 멤버를 소프트 삭제 방식으로 추방합니다.")
+    public ResponseEntity<Void> deleteCrewMember(@PathVariable Long memberId) {
+        crewMemberService.removeCrewMember(memberId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -111,4 +111,11 @@ public class CrewMemberService {
 
         return CrewMemberDto.fromEntity(updated);
     }
+
+    public void removeCrewMember(Long crewMemberId) {
+        CrewMemberEntity member = crewMemberRepository.findById(crewMemberId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버입니다."));
+
+        crewMemberRepository.delete(member);  // @SQLDelete 작동 → is_deleted = true
+    }
 }
